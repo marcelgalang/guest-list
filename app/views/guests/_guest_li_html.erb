@@ -1,0 +1,7 @@
+<%= li_for_guest(guest) do %>
+  <div class="view">
+    <%= form_for_guest_status(guest) %>
+
+    <label><%= guest.description %></label>
+  </div>
+<% end %>

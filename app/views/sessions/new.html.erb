@@ -1,0 +1,18 @@
+<header id="header">
+  <h1>Guestlist</h1>
+
+  <%= form_tag(sessions_path) do %>
+    <input type="text" id="new-todo" name="username" placeholder="Your Username" /><br><br>
+
+    <input type="text" id="new-todo" name="email" placeholder="Your Email" /><br><br>
+
+    <input type="password" id="new-todo" name="password" placeholder="Your Password" /><br><br>
+
+    <button type="submit">
+  <% end %>
+</header>
+
+<footer id="footer">
+  <%= link_to "Login via Facebook", '/auth/facebook' %> <br><br>
+  <%= link_to "Sign Up with Email", new_user_path %>
+</footer>

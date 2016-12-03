@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<% if @message %>
+  <%= @message %>
+<% end %>
+
+<div class="info">
+
+    <p><strong>Name:</strong> <%= @user.username %></p>
+
+    <p><%= link_to 'Edit', edit_user_path(@user) %></p>
+
+  </div>

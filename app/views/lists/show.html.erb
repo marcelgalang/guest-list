@@ -1,0 +1,27 @@
+<section class="todoapp">
+  <header class="header">
+    <h1><%= @list.name %></h1>
+    <%= form_for([@list, @guest]) do |f| %>
+      <%= f.text_field :name, :class => "new-todo", :placeholder => (@guest.errors.full_messages_for(:name).first || "Enter a new guest...") %>
+      <%= f.submit :style => "display: none" %>
+    <% end %>
+  </header>
+  <section class="main">
+    <input class="toggle-all" type="checkbox">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+      <%= render :collection => @list.guests, :partial => "guests/guest_li", :as => :guest %>
+    </ul>
+  </section>
+
+ <footer class="footer">
+    <div>Add Users to List
+
+
+
+    </div>
+
+  </footer>
+</section>
+<%= link_to 'Logout', logout_path %> | <%= link_to 'Your Lists', lists_path %>
+
