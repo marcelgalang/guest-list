@@ -12,7 +12,7 @@ class ListsController < ApplicationController
   # GET /lists/1.json
   def show
     @list = List.find_or_create_by(params[:id])
-    @guest = guest.new
+    @guest = Guest.new
   end
 
   # GET /lists/new

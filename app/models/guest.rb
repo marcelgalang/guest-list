@@ -1,7 +1,7 @@
 class Guest < ApplicationRecord
 
   belongs_to :list
-  validates :description, :presence => true
+  validates :name, :presence => true
   STATUS = {
     :incomplete => 0,
     :complete => 1
@@ -16,4 +16,4 @@ class Guest < ApplicationRecord
   end
 end
 
-end
+
