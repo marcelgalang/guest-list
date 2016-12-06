@@ -3,8 +3,8 @@ class Guest < ApplicationRecord
   belongs_to :list
   validates :name, :presence => true
   STATUS = {
-    :incomplete => 0,
-    :complete => 1
+    :absent => 0,
+    :present => 1
   }
 
   def present?
