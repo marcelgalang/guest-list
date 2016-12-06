@@ -1,6 +1,6 @@
 <section class="todoapp">
   <header class="header">
-    <h1>Your Lists</h1>
+    <h1>Events</h1>
     <%= form_for(@list) do |f| %>
       <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new list name...") %>
       <%= f.submit :style => "display: none" %>
@@ -14,7 +14,7 @@
       <% @lists.each do |list| %>
       <li>
         <div class="view">
-          <label><%= link_to list.name, list_path(list) %></label>
+          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.guests.size %>  </label>
         </div>
       </li>
       <% end %>

@@ -6,18 +6,31 @@
       <%= f.submit :style => "display: none" %>
     <% end %>
   </header>
+
+
   <section class="main">
     <input class="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as present</label>
     <ul class="todo-list">
-      <%= render :collection => @list.guests, :partial => "guests/guest_li", :as => :guest %>
+      <% @list.guests.each do |guest| %>
+      <li class="<%= "completed" if guest.present? %>">
+        <div class="view">
+          <%= form_for([@list, guest]) do |f| %>
+            <%= f.check_box :status, :class => "toggle" %>
+          <% end %>
+
+          <label><%= guest.name %></label>
+        </div>
+      </li>
+      <% end %>
     </ul>
   </section>
+
 
  <footer class="footer">
 
 
   </footer>
 </section>
-<%= link_to 'Logout', logout_path %> | <%= link_to 'Your Lists', lists_path %>
+<%= link_to 'Logout', logout_path %> | <%= link_to 'Your Events', lists_path %>
 

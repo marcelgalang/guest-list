@@ -1,7 +1,7 @@
 module GuestsHelper
 
   def li_class_for_guest(guest)
-    "present" if guest.present?
+    "completed" if guest.present?
   end
 
   def li_for_guest(guest)
