@@ -21,29 +21,23 @@ class UsersController < ApplicationController
       end
   end
 
-  # def show
-  #    @message = params[:message] if params[:message]
-  #    @message ||= false
-  # end
-
 
   def edit
   end
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(
-        :username,
-        :id,
-        :password,
-        :email
-      )
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+  params.require(:user).permit(
+    :username,
+    :id,
+    :password,
+    :email
+     )
+  end
 end
