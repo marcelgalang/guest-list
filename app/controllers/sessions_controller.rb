@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  # skip_before_action :login_required, :only => [:new, :create]
 
+  # skip_before_action :require_logged_in, :only => [:new, :create]
   def new
   end
 
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if params[:email].present? && params[:password].present?
       user = User.find_by(:email => params[:email])
       if user && user.authenticate(params[:password])
-        login(user)
+        session[:user_id] = user.id
         redirect_to lists_path
       else
         flash.now[:notice] = "Could not find that person, sorry!"
@@ -30,11 +30,9 @@ class SessionsController < ApplicationController
   end
 
 
-
   def destroy
-    reset_session
-    flash[:notice] = "You have been logged out!"
-    render :new
+    session.clear
+    redirect_to login_path
   end
 
 end

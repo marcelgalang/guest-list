@@ -4,11 +4,11 @@ class Guest < ApplicationRecord
   validates :name, :presence => true
   STATUS = {
     :absent => 0,
-    :present => 1
+    :attending => 1
   }
 
-  def present?
-    self.status == STATUS[:present]
+  def attending?
+    self.status == STATUS[:attending]
   end
 
   def absent?

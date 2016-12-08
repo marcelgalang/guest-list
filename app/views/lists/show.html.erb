@@ -10,13 +10,16 @@
 
   <section class="main">
     <input class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as present</label>
+    <label for="toggle-all">Mark all as attending</label>
     <ul class="todo-list">
       <% @list.guests.each do |guest| %>
-      <li class="<%= "completed" if guest.present? %>">
+      <li class="<%= "completed" if guest.attending? %>">
         <div class="view">
           <%= form_for([@list, guest]) do |f| %>
             <%= f.check_box :status, :class => "toggle" %>
+            <!-- <%= f.submit :style => "display: none" %> -->
+            <%= f.submit "Change Attendance"%>
+
           <% end %>
 
           <label><%= guest.name %></label>
@@ -32,5 +35,5 @@
 
   </footer>
 </section>
-<%= link_to 'Logout', logout_path %> | <%= link_to 'Your Events', lists_path %>
+<%= link_to 'Your Events', lists_path %> |
 

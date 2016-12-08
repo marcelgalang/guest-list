@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 
   def show
-    redirect_to '/' unless logged_in?
+    redirect_to login_path unless logged_in?
   end
 
 
@@ -15,16 +15,13 @@ class UsersController < ApplicationController
     user = User.new(user_params)
       if user.save
         session[:user_id] = user.id
-        redirect_to list_path(user)
+        redirect_to lists_path
       else
+      flash[:alert] = "There was an error, please check all fields and try again."
+
         render :new
       end
   end
-
-  # def show
-  #    @message = params[:message] if params[:message]
-  #    @message ||= false
-  # end
 
 
   def edit
@@ -32,18 +29,17 @@ class UsersController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(
-        :username,
-        :id,
-        :password,
-        :email
-      )
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+  params.require(:user).permit(
+    :username,
+    :id,
+    :password,
+    :email
+     )
+  end
 end
