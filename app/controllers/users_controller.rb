@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 
   def show
-    redirect_to '/' unless logged_in?
+    redirect_to login_path unless logged_in?
   end
 
 
@@ -15,8 +15,10 @@ class UsersController < ApplicationController
     user = User.new(user_params)
       if user.save
         session[:user_id] = user.id
-        redirect_to list_path(user)
+        redirect_to lists_path
       else
+      flash[:alert] = "There was an error, please check all fields and try again."
+
         render :new
       end
   end

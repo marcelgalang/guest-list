@@ -1,12 +1,15 @@
 <header id="header">
   <h1>Guestlist</h1>
 
+  <h2>Login</h2>
+  <p id="notice"><%= notice %></p>
+
   <%= form_tag(sessions_path) do %>
-    <input type="text" id="new-todo" name="username" placeholder="Your Username" /><br><br>
+    <input type="text" id="new-todo" name="username" placeholder="Your Username" /><br>
 
-    <input type="text" id="new-todo" name="email" placeholder="Your Email" /><br><br>
+    <input type="text" id="new-todo" name="email" placeholder="Your Email" /><br>
 
-    <input type="password" id="new-todo" name="password" placeholder="Your Password" /><br><br>
+    <input type="password" id="new-todo" name="password" placeholder="Your Password" /><br>
 
     <button type="submit">
   <% end %>

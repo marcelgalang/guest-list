@@ -14,24 +14,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :username %>
-    <br>
-    <%= f.text_field :username %>
+    <%= f.text_field :username, placeholder:"Your Username" %>
   </div>
-
-
   <div class="field">
-    <%= f.label :email, "Email" %>
-    <br>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, placeholder:"Your Email" %>
   </div>
-
-
   <div class="field">
-    <%= f.label :password %>
-    <br>
-    <%= f.password_field :password %>
-
+    <%= f.password_field :password, placeholder:"Your Password" %>
   <div class="actions">
     <%= f.submit %>
   </div>
