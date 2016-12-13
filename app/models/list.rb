@@ -7,7 +7,11 @@ class List < ApplicationRecord
 
   validates :name, :presence => true, :length => {:minimum => 3}
 
+  # def guest_attributes=(guest)
+  #       self.guest = Guest.find_or_create_by(name: name)
+  #     end
 
-  accepts_nested_attributes_for :guests
+
+  # accepts_nested_attributes_for :guests
 
 end
