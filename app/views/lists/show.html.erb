@@ -23,8 +23,9 @@
             <%= f.submit "Change Attendance"%>
 
           <% end %>
+          <% guest.list_id = @list.id %>
 
-          <label><%= link_to guest.name, list_guest_path(guest) %>
+          <label><%= link_to guest.name, list_guest_path(@list, guest) %>
           </label>
         </div>
       </li>

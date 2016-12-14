@@ -8,7 +8,7 @@ class GuestsController < ApplicationController
 
 
   def show
-    @list = List.find(params[:id])
+    # @list = List.find(params[:id])
     @guest = Guest.find(params[:id])
   end
 
