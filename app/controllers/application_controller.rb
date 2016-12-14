@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   before_action :current_user
   # before_action :require_logged_in, except: [:new, :create ]
 
+private
+
+  def can_current_user?(action, object)
+    object.send("#{action}able_by?", current_user)
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

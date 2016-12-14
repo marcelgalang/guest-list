@@ -1,6 +1,7 @@
 class Guest < ApplicationRecord
 
   belongs_to :list
+
   validates :name, :presence => true
   STATUS = {
     :absent => 0,

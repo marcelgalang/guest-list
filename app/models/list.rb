@@ -2,6 +2,13 @@ class List < ApplicationRecord
   has_many :guests
   has_many :shared_lists
   has_many :users, :through => :shared_lists
+  belongs_to :user
+
+  PERMISSIONS = {
+    :destroy => 0,
+    :edit => 10,
+    :view => 100
+  }
 
 
 
@@ -17,5 +24,16 @@ class List < ApplicationRecord
        end
      end
    end
+
+    def self.permissable(*args)
+    args.each do |action|
+      # action #=> :view
+      define_method "#{action}able?" do
+        self.permission <= PERMISSIONS[action]
+      end
+    end
+  end
+
+  permissable :view, :edit, :destroy
 
 end
