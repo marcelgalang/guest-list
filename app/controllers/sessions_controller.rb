@@ -32,7 +32,9 @@ class SessionsController < ApplicationController
 
   def destroy
     session.clear
-    redirect_to login_path
+    # redirect_to login_path
+    flash[:notice] = "You have been logged out!"
+    render :new
   end
 
 end

@@ -42,9 +42,7 @@ class GuestsController < ApplicationController
   # DELETE /guests/1
   # DELETE /guests/1.json
   def destroy
-    @guest.destroy
-    redirect_to guests_url, notice: 'Guest was successfully removed.'
-
+    can_current_user?(:destroy, @guest)
   end
 
   private

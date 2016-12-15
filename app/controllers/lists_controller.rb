@@ -1,29 +1,29 @@
 class ListsController < ApplicationController
   # before_action :set_list, only: [:show, :edit, :update, :destroy]
 
-  # GET /lists
-  # GET /lists.json
+
   def index
     @lists = List.all
     @list = List.new
   end
 
-  # GET /lists/1
-  # GET /lists/1.json
+
   def show
     @list = List.find(params[:id])
     @guest = Guest.new
   end
 
-  # GET /lists/new
+
   def new
     @list = List.new
-    # @list.guests.build
   end
 
 
   def edit
     @list = List.find(params[:id])
+    if !can_current_user?(:edit, @list)
+      redirect_to :index, :notice => "Can't find that..."
+    end
   end
 
 
