@@ -31,6 +31,14 @@
       </li>
       <% end %>
     </ul>
+
+    <form action="/sharedlists/new" method="post">
+    <%= form_for @sharedlist, url: "/sharedlists/new", method="post" do |f|%>
+        <%= f.collection_select(:user_id, @users, :id, :name) %>
+        <%= :list_id = @list.id %>
+        <%= :permission = :host%>
+        <input type="submit" value="Add Host">
+     <%= f.submit %>
   </section>
 
 
