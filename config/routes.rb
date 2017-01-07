@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'sharedlists/new'
+
   resources :users
 
   get '/auth/facebook/callback' => 'sessions#create'
@@ -13,6 +15,10 @@ Rails.application.routes.draw do
   resources :lists do
    resources :guests
   end
+
+  resources :shared_lists
+  # get 'sharedlists/new'
+  # post "/sharedlists/new", to: "sharedlists#new"
 
   root 'lists#index'
 

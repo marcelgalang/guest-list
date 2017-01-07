@@ -6,6 +6,11 @@ class UsersController < ApplicationController
     redirect_to login_path unless logged_in?
   end
 
+  def index
+    @users = User.all
+  end
+
+
 
   def new
     @user = User.new
