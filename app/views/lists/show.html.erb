@@ -34,9 +34,14 @@
 
 
     <%= form_for @sharedlist do |f|%>
-    <%= f.collection_select(:user, User.all, :id, :username) %>
-     <%= f.submit %>
-     <% end %>
+      <%= f.collection_select(:user, User.all, :id, :username) %>
+      <% list_id = @list.id %>
+      <% permission = :edit%>
+
+      <%= f.submit "Add Host" %>
+    <% end %>
+
+
 
 
   </section>

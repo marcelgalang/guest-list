@@ -16,9 +16,9 @@ Rails.application.routes.draw do
    resources :guests
   end
 
-  resources :shared_lists
-  # get 'sharedlists/new'
-  # post "/sharedlists/new", to: "sharedlists#new"
+  # resources :shared_lists
+  get 'shared_lists/new'
+  post "/shared_lists", to: "shared_lists#create"
 
   root 'lists#index'
 
