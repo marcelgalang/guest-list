@@ -5,15 +5,17 @@ class SharedListsController < ApplicationController
   end
 
   def create
-    @sharedlist = SharedList.create(
-      :user_id => params[:user_id],
-      :list_id => params[:list_id],
-      :permission => params[:permission]
-      )
-    @list = List.find_by(params[:id])
-    # raise params.inspect
+    @sharedlist = SharedList.new(shared_list_params)
+    @sharedlist.save
+    # @list = List.find_by(params[:id])
 
     redirect_to list_path(
-      @list)
+      @sharedlist.list.id)
   end
+
+  private
+
+  def shared_list_params
+      params.require(:shared_list).permit(:user_id, :list_id, :permission)
+    end
 end

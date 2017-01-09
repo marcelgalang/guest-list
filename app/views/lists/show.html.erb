@@ -31,16 +31,16 @@
       </li>
       <% end %>
     </ul>
+    <p><%= @user%></p>
 
 
     <%= form_for @sharedlist do |f|%>
-      <%= f.collection_select(:user, User.all, :id, :username) %>
-      <% list_id = @list.id %>
-      <% permission = :edit%>
+      <%= f.collection_select(:user_id, User.all, :id, :username) %>
+      <%= f.hidden_field :list_id, :value => @list.id %>
+      <%= f.hidden_field :permission, :value => 10 %>
 
-      <%= f.submit "Add Host" %>
+      <%= f.submit "Add A Host" %>
     <% end %>
-
 
 
 
@@ -52,5 +52,5 @@
 
   </footer>
 </section>
-<%= link_to 'Your Events', lists_path %> |
+<%= link_to 'Your Events', lists_path %> | <%= @sharedlist%>
 
