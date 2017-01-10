@@ -7,7 +7,6 @@ class SharedListsController < ApplicationController
   def create
     @sharedlist = SharedList.new(shared_list_params)
     @sharedlist.save
-    # @list = List.find_by(params[:id])
 
     redirect_to list_path(
       @sharedlist.list.id)

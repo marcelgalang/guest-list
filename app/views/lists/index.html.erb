@@ -1,4 +1,4 @@
-<section class="todoapp">
+ <section class="todoapp">
   <header class="header">
     <h1>Events</h1>
     <%= form_for(@list) do |f| %>
@@ -14,7 +14,7 @@
       <% @lists.each do |list| %>
       <li>
         <div class="view">
-          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.guests.size %>  </label>
+          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.head_count(list) %>  </label>
         </div>
       </li>
       <% end %>
