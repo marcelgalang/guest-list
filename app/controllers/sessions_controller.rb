@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  # skip_before_action :require_logged_in, :only => [:new, :create]
+
   def new
   end
 
@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
         render :new
       end
     elsif request.env['omniauth.auth'].present?
-      # is this the first time I've seen you?
       user = User.find_or_create_by(:uid => auth['uid']) do |u|
       u.username = auth['info']['username']
       u.email = auth['info']['email']
@@ -29,10 +28,9 @@ class SessionsController < ApplicationController
     request.env['omniauth.auth']
   end
 
-
+#to be implemented
   def destroy
     session.clear
-    # redirect_to login_path
     flash[:notice] = "You have been logged out!"
     render :new
   end

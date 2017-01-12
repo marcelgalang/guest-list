@@ -12,6 +12,10 @@ class SharedListsController < ApplicationController
       @sharedlist.list.id)
   end
 
+  def show
+    @sharedlist = SharedList.find(params[:id])
+  end
+
   private
 
   def shared_list_params

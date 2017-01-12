@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :current_user
-  # before_action :require_logged_in, except: [:new, :create ]
+
 
 private
 
+# permissions to be implemented
   def can_current_user?(action, object)
     object.send("#{action}able_by?", current_user)
   end
@@ -20,6 +21,7 @@ private
 
   private
 
+#get to work with Oauth
   def require_logged_in
     redirect_to login_path, :notice => "Please login first!"unless logged_in?
   end

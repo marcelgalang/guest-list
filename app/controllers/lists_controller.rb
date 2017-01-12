@@ -1,7 +1,5 @@
 class ListsController < ApplicationController
 
-
-
   def index
     @lists = List.all
     @list = List.new
@@ -19,7 +17,7 @@ class ListsController < ApplicationController
     @list = List.new
   end
 
-
+#not implemented
   def edit
     @list = List.find(params[:id])
     if !can_current_user?(:edit, @list)
@@ -38,14 +36,14 @@ class ListsController < ApplicationController
     end
   end
 
-
+#not implemented into views
   def destroy
     @list.destroy
     redirect_to lists_url, notice: 'List was successfully destroyed.'
   end
 
   private
-   \
+
     def set_list
       @list = List.find(params[:id])
     end
