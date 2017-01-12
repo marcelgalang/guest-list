@@ -1,7 +1,7 @@
 
 # README
 
-Guest List
+##Guest List
 
 A simple Rails app for party planners and event security.
 
