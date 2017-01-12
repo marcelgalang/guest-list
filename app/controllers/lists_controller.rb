@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  # before_action :set_list, only: [:show, :edit, :update, :destroy]
+
 
 
   def index
@@ -45,12 +45,12 @@ class ListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+   \
     def set_list
       @list = List.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+
     def list_params
       params.require(:list).permit(:name, :guests_attributes => [:name])
     end

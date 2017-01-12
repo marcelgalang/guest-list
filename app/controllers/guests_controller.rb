@@ -22,13 +22,15 @@ class GuestsController < ApplicationController
   end
 
 
+
+
   def create
     @list = List.find(params[:list_id])
     @guest = @list.guests.build(guest_params)
     if @guest.save
       redirect_to list_path(@list)
     else
-      render "lists/show"
+      redirect_to list_path(@list)
     end
   end
 

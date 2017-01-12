@@ -2,7 +2,7 @@ class Guest < ApplicationRecord
 
   belongs_to :list
 
-  validates :name, :presence => true
+  validates :name, :presence => true, :length => {:minimum => 1}
   STATUS = {
     :absent => 0,
     :attending => 1

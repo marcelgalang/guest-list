@@ -42,8 +42,9 @@
       <%= f.submit "Add A Host" %>
     <% end %>
 
-    <p>Hosts</p>
-    <%= @sharedlist.user%>
+    <p>Hosts
+      <%=@current_user%>
+    <%= SharedList.last.user.username%></p>
 
 
 

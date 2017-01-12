@@ -2,7 +2,6 @@ class List < ApplicationRecord
   has_many :guests
   has_many :shared_lists
   has_many :users, :through => :shared_lists
-  belongs_to :user
 
   PERMISSIONS = {
     :destroy => 0,
@@ -36,8 +35,8 @@ class List < ApplicationRecord
 
   # permissable :view, :edit, :destroy
 
-  def head_count(list)
-    list.guests.size
+  def head_count
+    self.guests.size
   end
 
   def percent_attending(list)
@@ -45,20 +44,15 @@ class List < ApplicationRecord
     list.guests.each do |guest|
      if guest.status = 1
      attending << guest
+      end
+      list.head_count/attending
     end
-    list.head_count/attending
   end
-end
 
-def most_invited
-  @lists.max_by {|list| head_count(list)}
-end
-
-def best_attendance
-  @lists.max_by do |list|
-    head_count(list)/percent_attending(list)
+  def self.most_invited
+    most_list = List.all.max_by {|list| list.guests.size}
+    most_list.name
   end
-end
 
 
 end
