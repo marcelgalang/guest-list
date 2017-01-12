@@ -16,7 +16,8 @@ git@github.com:marcelgalang/guest-list.git
 
 For HTTPS
 ```ruby
-https://github.com/marcelgalang/guest-list.git```
+https://github.com/marcelgalang/guest-list.git
+```
 
 And then execute:
 
