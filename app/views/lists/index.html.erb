@@ -7,6 +7,7 @@
     <% end %>
 </form>
   </header>
+
   <section class="main">
     <input class="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
@@ -14,13 +15,16 @@
       <% @lists.each do |list| %>
       <li>
         <div class="view">
-          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.head_count(list) %>  </label>
+          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.head_count %>  </label>
         </div>
       </li>
       <% end %>
     </ul>
+
+
   </section>
   <footer class="footer">
+    <div>Biggest Event: <%= List.most_invited.upcase %></div>
   </footer>
 </section>
 
