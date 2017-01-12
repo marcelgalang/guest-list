@@ -7,6 +7,7 @@ class SharedList < ApplicationRecord
     :view => 100
   }
 
+#permissions to be implemented. Can be assigned in list#show.
   def self.permissable(*args)
     args.each do |action|
       define_method "#{action}able?" do

@@ -5,6 +5,5 @@ class User < ApplicationRecord
   validates :uid, :uniqueness => {:scope => :provider, :allow_nil => true}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
   validates :username, :presence => true, :length => {:minimum => 1}
-  validates :password, :presence => true, :length => {:minimum => 1}
 
 end

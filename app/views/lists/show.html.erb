@@ -3,6 +3,7 @@
     <h1><%= @list.name %></h1>
     <%= form_for([@list, @guest]) do |f| %>
       <%= f.text_field :name, :class => "new-todo", :placeholder => (@guest.errors.full_messages_for(:name).first || "Enter a new guest...") %>
+      <!-- field_with_error will not show for guest but shows in index for list?! -->
       <% @guest.list_id = @list.id %>
       <%= f.submit :style => "display: none" %>
     <% end %>
@@ -42,9 +43,12 @@
       <%= f.submit "Add A Host" %>
     <% end %>
 
-    <p>Hosts
-      <%=@current_user%>
-    <%= SharedList.last.user.username%></p>
+<!-- Find out how to show current_user by name as well as getting at @sharedlist correctly -->
+    <!-- <p>Hosts -->
+<!--       # <%=@current_user%>
+ --><!--     SharedList.last.user.username%>
+ --><!--     @sharedlist.user.username%>
+ -->    <!-- </p> -->
 
 
 
@@ -56,5 +60,5 @@
 
   </footer>
 </section>
-<%= link_to 'Your Events', lists_path %> |
+<%= link_to 'All Events', lists_path %> |
 
