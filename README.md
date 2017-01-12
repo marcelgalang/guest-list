@@ -1,28 +1,33 @@
-<<<<<<< HEAD
+
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Guest List
 
-Things you may want to cover:
+A simple Rails app for party planners and event security.
 
-* Ruby version
+## Installation
 
-* System dependencies
+Clone this line to your terminal
 
-* Configuration
+For SSH
+```ruby
+git@github.com:marcelgalang/guest-list.git
+```
 
-* Database creation
+For HTTPS
+```ruby
+https://github.com/marcelgalang/guest-list.git```
 
-* Database initialization
+And then execute:
 
-* How to run the test suite
+    $ rails s
 
-* Services (job queues, cache servers, search engines, etc.)
+Finally, redirect your browser to the URL given by the Rails Server, often http://localhost:3000.
 
-* Deployment instructions
 
-* ...
-=======
->>>>>>> f2367747c8c91c6135c24d50c5923e4c8e9be935
-# guest-list
+
+## License
+
+The app is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).e
+
+
