@@ -20,7 +20,7 @@ class SharedList < ApplicationRecord
 end
 
 def show_hosts(list)
-  list.users.select('users.*, shared_list.permission').each do |user|
-  puts user.permission
-  end
+  # list.users.select('users.*, shared_list.permission').each do |user|
+  # puts user.permission
+  # end
 end
