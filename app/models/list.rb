@@ -25,8 +25,14 @@ class List < ApplicationRecord
 
   def self.most_invited
     most_list = List.all.max_by {|list| list.guests.size}
-    most_list.name
+    if most_list != nil
+      most_list.name
+    else
+      "TBD"
+    end
   end
+
+
 
 
 end
