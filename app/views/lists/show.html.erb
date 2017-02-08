@@ -3,7 +3,6 @@
     <h1><%= @list.name %></h1>
     <%= form_for([@list, @guest]) do |f| %>
       <%= f.text_field :name, :class => "new-todo", :placeholder => (@guest.errors.full_messages_for(:name).first || "Enter a new guest...") %>
-      <!-- field_with_error will not show for guest but shows in index for list?! -->
       <% @guest.list_id = @list.id %>
       <%= f.submit :style => "display: none" %>
     <% end %>
@@ -14,23 +13,7 @@
     <input class="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as attending</label>
     <ul class="todo-list">
-      <% @list.guests.each do |guest| %>
-      <li class="<%= "completed" if guest.attending? %>">
-        <div class="view">
-          <%= form_for([@list, guest]) do |f| %>
-            <%= f.check_box :status %>
-
-            <!-- <%= f.submit :style => "display: none" %> -->
-            <%= f.submit "Change Attendance"%>
-
-          <% end %>
-          <% guest.list_id = @list.id %>
-
-          <label><%= link_to guest.name, list_guest_path(@list, guest) %>
-          </label>
-        </div>
-      </li>
-      <% end %>
+      <%= render :collection => @list.guests, :partial => "guests/guest_li", :as => :guest %>
     </ul>
     <p><%= @user%></p>
 
@@ -47,9 +30,17 @@
     <!-- <p>Hosts -->
 <!--       # <%=@current_user%>
  --><!--     SharedList.last.user.username%>
- --><!--     @sharedlist.user.username%>
- -->    <!-- </p> -->
-  <p><%= show_hosts(@list) %></p>
+ --><!--     @sharedlist.user.username%> -->
+
+
+   <ul>
+   <% @list.shared_lists.each do |shared_list| %>
+
+   <%= shared_list.user.username %>
+   <% end %>
+   </ul>
+
+ </p>
 
 
   </section>
@@ -61,4 +52,3 @@
   </footer>
 </section>
 <%= link_to 'All Events', lists_path %> |
-

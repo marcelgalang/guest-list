@@ -207,7 +207,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li.completed label {
-  color: #4ef442;
+  color: #818387;
   text-decoration: line-through;
 }
 
@@ -376,5 +376,3 @@ html .clear-completed:active {
     bottom: 10px;
   }
 }
-
-
