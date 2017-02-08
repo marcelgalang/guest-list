@@ -6,12 +6,13 @@
       <% @guest.list_id = @list.id %>
       <%= f.submit :style => "display: none" %>
     <% end %>
+
   </header>
 
 
   <section class="main">
     <input class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as attending</label>
+    <label for="toggle-all">Mark all as completed</label>
     <ul class="todo-list">
       <%= render :collection => @list.guests, :partial => "guests/guest_li", :as => :guest %>
     </ul>
@@ -33,15 +34,29 @@
  --><!--     @sharedlist.user.username%> -->
 
 
+  <div>Hosted by:</div>
    <ul>
    <% @list.shared_lists.each do |shared_list| %>
+    <%= shared_list.user.username%>
+    <br>
 
-   <%= shared_list.user.username %>
    <% end %>
    </ul>
 
- </p>
 
+
+
+  </section>
+
+  <section class="main">
+    <a href>See comments</a>
+    <div class="comments">
+      <ol>
+        <% @comments.each do |comment| %>
+        <li><%= comment.content %></li>
+        <% end %>
+      </ol>
+    </div>
 
   </section>
 
