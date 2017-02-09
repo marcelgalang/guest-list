@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :lists do
    resources :guests
+   resources :comments
   end
 
   # resources :shared_lists

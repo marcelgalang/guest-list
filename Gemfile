@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'omniauth'
-
+gem 'pry'
 gem 'omniauth-facebook'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

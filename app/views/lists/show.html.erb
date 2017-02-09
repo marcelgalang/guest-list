@@ -1,12 +1,12 @@
 <section class="todoapp">
   <header class="header">
     <h1><%= @list.name %></h1>
-    <%= form_for([@list, @guest]) do |f| %>
+    <%= form_for [@list, @guest] do |f| %>
       <%= f.text_field :name, :class => "new-todo", :placeholder => (@guest.errors.full_messages_for(:name).first || "Enter a new guest...") %>
+      <!-- field_with_error will not show for guest but shows in index for list?! -->
       <% @guest.list_id = @list.id %>
       <%= f.submit :style => "display: none" %>
     <% end %>
-
   </header>
 
 
@@ -27,11 +27,6 @@
       <%= f.submit "Add A Host" %>
     <% end %>
 
-<!-- Find out how to show current_user by name as well as getting at @sharedlist correctly -->
-    <!-- <p>Hosts -->
-<!--       # <%=@current_user%>
- --><!--     SharedList.last.user.username%>
- --><!--     @sharedlist.user.username%> -->
 
 
   <div>Hosted by:</div>
@@ -49,14 +44,19 @@
   </section>
 
   <section class="main">
-    <a href>See comments</a>
+    <p>
+    <%= link_to "Load comments", list_comments_path(@list) , :class => "load_comments"%>
+    </p>
     <div class="comments">
-      <ol>
-        <% @comments.each do |comment| %>
-        <li><%= comment.content %></li>
-        <% end %>
-      </ol>
+      <%= render 'comments/comments' %>
+</div>
     </div>
+
+    <%= form_for ([@list, @comment])do |f|  %>
+      <%= f.text_area :content %>
+
+      <p><%= f.submit %></p>
+    <% end %>
 
   </section>
 

@@ -1,5 +1,7 @@
 class ListsController < ApplicationController
 
+  before_action :set_list, only: [:show, :edit, :update, :destroy]
+
   def index
     @lists = List.all
     @list = List.new
@@ -7,9 +9,10 @@ class ListsController < ApplicationController
 
 
   def show
-    @list = List.find(params[:id])
     @guest = Guest.new
     @sharedlist = SharedList.new
+    @comment = Comment.new
+    @comments = @list.comments
   end
 
 
