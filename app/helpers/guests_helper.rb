@@ -1,7 +1,8 @@
 module GuestsHelper
 
   def li_class_for_guest(guest)
-    "completed" if guest.present?
+    # "completed" if guest.present?
+    "attending" if guest.attending?
   end
 
   def li_for_guest(guest)
@@ -12,7 +13,7 @@ module GuestsHelper
 
   def form_for_guest_status(guest)
     form_for([guest.list, guest]) do |f|
-      f.check_box :status, :class => "toggle", :checked => guest.present?
+      f.check_box :status, :class => "toggle", :checked => guest.attending?
     end
   end
 end

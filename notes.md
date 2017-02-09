@@ -1,0 +1,4 @@
+- In Rails, add comments to event lists.
+- A list has_many comments
+- A comment belongs_to a list
+- A comment belongs_to a user

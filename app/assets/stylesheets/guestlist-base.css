@@ -207,8 +207,8 @@ label[for='toggle-all'] {
 }
 
 .todo-list li.completed label {
-  color: #4ef442;
-  text-decoration: line-through;
+  color: #d9d9d9;
+	text-decoration: line-through;
 }
 
 .todo-list li .destroy {
@@ -376,5 +376,3 @@ html .clear-completed:active {
     bottom: 10px;
   }
 }
-
-
