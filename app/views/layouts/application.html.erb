@@ -9,7 +9,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="app-container" class="container">
+      <%= yield %>
+    </div>
   </body>
   <%= link_to 'Logout', logout_path %>
 </html>

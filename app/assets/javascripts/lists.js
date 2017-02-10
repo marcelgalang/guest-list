@@ -4,65 +4,72 @@ $(function(){
   })
 });
 
-$(function(){
-  $("a.load_comments").on("click", function(e){
-    // alert("You been clickin'")
-    $.ajax({
-      method: "GET",
-      url: this.href
-    }).done (function(response){
-      $("div.comments").html(response)
-    });
-    e.preventDefault();
-  })
+$(function() {
+  bindClick()
 })
 
+// show index ala Cernan
+
+function bindClick() {
+  $('a.load_comments').on('click', function(){
+    $.get('/api/lists/:id/comments'), function(data){
+      $('#app-container').html('')
+      data.forEach(function(post){
+        var newComment = new Comment(comment.id, comment.content, comment.list_id);
+        var formattedComment = newComment.formatCommentsIndex()
+        $('#app-container').append(formattedComment)
+
+      })
+       e.preventDefault();
+    }
+  })
+}
+
+function Comment(id, content, list_id){
+  this.id = id
+  this.content = content
+  this.list_id = list_id
+}
+
+Comment.prototype.formatCommentsIndex = function(){
+  var commentHtml = ''
+  commentHtml += '<p>${this.content}</p>'
+  return commentHtml
+
+}
+
+// Last Avi blanket function
 // $(function(){
 //   $("a.load_comments").on("click", function(e){
-//     // You just clicked on the Load Comments Link
-//     // We'd love to use the HREF attribute of that link as the URL for the request
 //
-//     // Fire some ajax.
-//     $.ajax({
-//       method: "GET",
-//       url: this.href
-//     }).success(function(response){
-//       // Get the response (it's the variable data)
-//       $("div.comments").html(response)
-//       // We'd really want to load that data into the DOM (add it to the current page)
-//     }).error(function(notNeeded){
-//       alert("we broke!!!!")
-//     });
-//
-//     // Requesting HTML
-//     // $.get(this.href).success(function(response){
-//     //   $("div.comments").html(response)
-//     // })
-//
-//     // Requesting JSON
-//     // $.get(this.href).success(function(json){
-//     //   // clear the OL html (in case there were stale comments)
-//     //   var $ol = $("div.comments ol")
-//     //   $ol.html("") // emptied the OL
-//     //
-//     //   // iterate over each comment within json
-//     //   json.forEach(function(comment){
-//     //     // with each comment data, append an LI to the OL with the comment content
-//     //     $ol.append("<li>" + comment.content + "</li>");
-//     //   })
-//     // })
-//
-//
-//     // load that response into the HTML of the page.
-//   //   e.preventDefault();
-//   // })
-//
-//   $("a.load_comments").on("click", function(e){
 //     $.ajax({
 //       url: this.href,
 //       dataType: 'script'
 //     })
 //
+//     e.preventDefault();
+//   })
+// })
+
+
+
+//     // Requesting HTML
+    // $.get(this.href).success(function(response){
+    //   $("div.comments").html(response)
+    // })
+//
+//     // Requesting JSON
+//     $.get(this.href).success(function(json){
+// //     //   // clear the OL html (in case there were stale comments)
+//       var $ol = $("div.comments ol")
+//       $ol.html("") // emptied the OL
+//       // iterate over each comment within json
+//       json.forEach(function(comment){
+//         // with each comment data, append an LI to the OL with the comment content
+//         $ol.append("<li>" + comment.content + "</li>");
+//       })
+//     })
+// //
 //     e.preventDefault();
 //   })
 // })
