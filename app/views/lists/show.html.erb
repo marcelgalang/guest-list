@@ -38,18 +38,15 @@
    <% end %>
    </ul>
 
-
-
-
   </section>
 
   <section class="main">
     <p>
-    <%= link_to "Load comments", list_comments_path(@list) , :class => "load_comments"%>
+    <%= link_to "Turn On Comments", list_comments_path(@list) , :class => "load_comments"%>
+
     </p>
     <div class="comments">
       <%= render 'comments/comments' %>
-</div>
     </div>
 
     <%= form_for ([@list, @comment])do |f|  %>
