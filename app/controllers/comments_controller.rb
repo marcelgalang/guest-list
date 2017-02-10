@@ -6,12 +6,13 @@ class CommentsController < ApplicationController
     @list = List.find(params[:list_id])
     @comments = @list.comments
     # render :layout => false
-    # render json: @comments
-    redirect_to list_url(@list)
+    render :json => @comments
+    # redirect_to list_url(@list)
+    # render 'index.js', :layout => false
     # respond_to do |format|
-    #   format.html {render 'index.html', :layout => false}
-    #   format.js {render 'index.js', :layout => false}
-    # end
+    #     format.html {render 'index.html', :layout => false}
+    #     format.js {render 'index.js', :layout => false}
+    #   end
   end
   def api_index
     @comments = @list.comments
