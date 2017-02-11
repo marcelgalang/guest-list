@@ -5,47 +5,40 @@ $(function(){
 });
 
 // show index ala Cernan
+// 
+// $(function() {
+//   bindClick()
+// })
 
-$(function() {
-  bindClick()
-})
-
-function bindClick() {
-  $('a.load_comments').on('click', function(){
-    $.get('/api/lists/:id/comments'), function(data){
-      $('#app-container').html('')
-      data.forEach(function(post){
-        var newComment = new Comment(comment.id, comment.content, comment.list_id);
-        var formattedComment = newComment.formatCommentsIndex()
-        $('#app-container').append(formattedComment)
-
-      })
-       e.preventDefault();
-    }
+function bindClick(){
+  $('a.load_events').on('click', function(e){
+    console.log('link clicked!')
+    e.preventDefault();
+    // $.get('/api/lists', function (data) {
+    //   console.log('link clicked!')
+    // })
   })
 }
 
-function Comment(id, content, list_id, user_id){
+function List(id, name){
   this.id = id
-  this.content = content
-  this.list_id = list_id
-  this.user_id = user_id
+  this.name = name
 }
 
-Comment.prototype.formatCommentsIndex = function(){
-  var commentHtml = ''
-  commentHtml += '<p>${this.content}</p>'
+List.prototype.formatListsIndex = function(){
+  var listHtml = ''
+  listHtml += '<p>${this.name}</p>'
   return commentHtml
 
 }
 
 // Last Avi blanket function
 // $(function(){
-//   $("a.load_comments").on("click", function(e){
-//
+//   $("a.load_events").on("click", function(e){
+//     debugger
 //     $.ajax({
 //       debugger
-//       url: this.href
+//       url: url,
 //       dataType: 'script'
 //     })
 //
@@ -79,6 +72,31 @@ Comment.prototype.formatCommentsIndex = function(){
 //       e.preventDefault();
 //     })
 //   })
+
+//Index of event lists
+// $(function(){
+//   $('a.load_events').on("click", function(e){
+//     $.get(this.href).success(function(json){
+//       console.log("It Worked!")
+//       // console.log(json)
+//       // debugger
+//       // clear the OL html (in case there were stale comments)
+//       //  var $ol = $("div.comments ol")
+//
+//       var $label = $("div.view label a")
+//       $label.html("")
+//
+//       //  $ol.html("") // emptied the OL
+//        json.forEach(function(view){
+//        console.log(view.name)
+//          $label.append("<a href>" + view.name + "</a>");
+//        })
+//     })
+//     e.preventDefault();
+//   })
+// })
+
+
 $(function(){
   $("a.load_comments").on("click", function(e){
     $.get(this.href).success(function(json){
@@ -99,7 +117,7 @@ $(function(){
 
 //
 //
-// Submit Comments via AJAX - 
+// Submit Comments via AJAX -
 $(function(){
   $("#new_comment").on("submit", function(e){
     // alert("You been clickin")

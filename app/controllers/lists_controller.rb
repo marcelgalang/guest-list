@@ -1,10 +1,15 @@
 class ListsController < ApplicationController
 
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  # before_action :set_list, only: [:show, :edit, :update, :destroy]
 
   def index
+    # @lists = List.all
+    # @list = List.new
+  end
+
+  def api_index
     @lists = List.all
-    @list = List.new
+    render :json => @lists
   end
 
 
