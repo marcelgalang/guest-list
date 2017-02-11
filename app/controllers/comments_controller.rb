@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
     render json: @comments
   end
 
+
   def api_show
     # @comment = Comment.find(params[:id])
     # @list = List.find_by_id(@comment.list.id)
@@ -30,9 +31,10 @@ class CommentsController < ApplicationController
     @list = List.find(params[:list_id])
     @comment = @list.comments.build(comments_params)
     if @comment.save
+      render 'comments/show', :layout => false
       # I need to render something that just has the LI I want...
       # why not just create a comments/show view that shows the LI of one comment?
-      redirect_to list_comments_path(@list)
+
       # render 'create.js', :layout => false
     else
       render "lists/show"
