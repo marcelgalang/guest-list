@@ -50,8 +50,9 @@
     </div>
 
     <%= form_for ([@list, @comment])do |f|  %>
-      <%= f.text_area :content %>
-      <p><%= f.submit %></p>
+      <%= f.text_field :content %>
+      <!-- <%# @comment.user = :current_user %> -->
+      <p><%= f.submit  :data => { disable_with: false }%></p>
     <% end %>
 
   </section>

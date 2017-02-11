@@ -21,9 +21,11 @@ class CommentsController < ApplicationController
 
 
   def api_show
-    # @comment = Comment.find(params[:id])
-    # @list = List.find_by_id(@comment.list.id)
+    @comment = Comment.find(params[:id])
+    @list = List.find_by_id(@comment.list.id)
     render json: @comment
+    binding.pry
+
   end
 
 
@@ -53,6 +55,6 @@ class CommentsController < ApplicationController
     end
 
     def comments_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:content, :user_id)
     end
 end
