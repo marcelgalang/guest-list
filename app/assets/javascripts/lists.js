@@ -6,37 +6,38 @@ $(function(){
 
 // show index ala Cernan
 
-// $(function() {
-//   bindClick()
-// })
+$(function() {
+  bindClick()
+})
 
-// function bindClick() {
-//   $('a.load_comments').on('click', function(){
-//     $.get('/api/lists/:id/comments'), function(data){
-//       $('#app-container').html('')
-//       data.forEach(function(post){
-//         var newComment = new Comment(comment.id, comment.content, comment.list_id);
-//         var formattedComment = newComment.formatCommentsIndex()
-//         $('#app-container').append(formattedComment)
-//
-//       })
-//        e.preventDefault();
-//     }
-//   })
-// }
-//
-// function Comment(id, content, list_id){
-//   this.id = id
-//   this.content = content
-//   this.list_id = list_id
-// }
-//
-// Comment.prototype.formatCommentsIndex = function(){
-//   var commentHtml = ''
-//   commentHtml += '<p>${this.content}</p>'
-//   return commentHtml
-//
-// }
+function bindClick() {
+  $('a.load_comments').on('click', function(){
+    $.get('/api/lists/:id/comments'), function(data){
+      $('#app-container').html('')
+      data.forEach(function(post){
+        var newComment = new Comment(comment.id, comment.content, comment.list_id);
+        var formattedComment = newComment.formatCommentsIndex()
+        $('#app-container').append(formattedComment)
+
+      })
+       e.preventDefault();
+    }
+  })
+}
+
+function Comment(id, content, list_id, user_id){
+  this.id = id
+  this.content = content
+  this.list_id = list_id
+  this.user_id = user_id
+}
+
+Comment.prototype.formatCommentsIndex = function(){
+  var commentHtml = ''
+  commentHtml += '<p>${this.content}</p>'
+  return commentHtml
+
+}
 
 // Last Avi blanket function
 // $(function(){
@@ -98,23 +99,19 @@ $(function(){
 
 //
 //
-// Submit Comments via AJAX - Soon to be replaced by remote true
+// Submit Comments via AJAX - 
 $(function(){
   $("#new_comment").on("submit", function(e){
     // alert("You been clickin")
-    url = this.action
-    data = {
-      'authenticity_token': $("input[name='authenticity_token']").val(),
-      'comment': {
-        'content': $("#comment_content").val()
-      }
-    }
+    // url = this.action
+    var data =  $(this).serialize();
 
     $.ajax({
       type: "POST",
-      url: url,
+      url: this.action,
       data: data,
       success: function(response){
+        // debugger
         $("#comment_content").val("");
         var $ol = $("div.comments ol")
         $ol.append(response);
@@ -122,7 +119,6 @@ $(function(){
 
     });
 
-    // console.log(data)
     e.preventDefault();
   })
 });
