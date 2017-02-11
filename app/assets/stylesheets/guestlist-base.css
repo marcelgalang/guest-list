@@ -1,4 +1,4 @@
-/*html,
+html,
 body {
   margin: 0;
   padding: 0;
@@ -37,7 +37,7 @@ body {
 
 button,
 input[type="checkbox"] {
-  outline: none;
+  /*outline: none;*/
 }
 
 .hidden {
@@ -375,4 +375,4 @@ html .clear-completed:active {
   .filters {
     bottom: 10px;
   }
-}*/
+}

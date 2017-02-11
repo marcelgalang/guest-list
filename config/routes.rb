@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   root "lists#index"
   # api show routes
   get 'api/lists', to: 'lists#api_index'
+  get 'api/lists/:id', to: 'lists#api_show'
 
   #all comments for a event list
   get 'api/lists/:id/comments', to: 'comments#api_index'
