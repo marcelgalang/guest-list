@@ -1,5 +1,13 @@
-<ol>
-  <% @comments.each do |comment| %>
-  <li><%= comment.content %></li>
-  <% end %>
-</ol>
+<h2>Event: <%=@list.name %></h2>
+
+<div class="comments">
+  <%= render 'comments/comments' %>
+</div>
+
+<%= form_for ([@list, @comment])do |f|  %>
+  <%= f.text_field :content %>
+  <!-- <%# @comment.user = :current_user %> -->
+  <!-- <p><%= f.submit  :data => { disable_with: false }%></p> -->
+  <p><%= f.submit  %></p>
+
+<% end %>

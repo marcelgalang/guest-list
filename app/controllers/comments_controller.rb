@@ -4,16 +4,20 @@ class CommentsController < ApplicationController
 
   def index
     @list = List.find(params[:list_id])
+    @guest = Guest.new
+    @sharedlist = SharedList.new
+    @comment = Comment.new
     @comments = @list.comments
     # render :layout => false
-    render :json => @comments
-    # redirect_to list_url(@list)
+    # render :json => @comments
+
     # render 'index.js', :layout => false
     # respond_to do |format|
     #     format.html {render 'index.html', :layout => false}
     #     format.js {render 'index.js', :layout => false}
     #   end
   end
+
   def api_index
     @comments = @list.comments
     render json: @comments
@@ -25,24 +29,36 @@ class CommentsController < ApplicationController
     @list = List.find_by_id(@comment.list.id)
     render json: @comment
     binding.pry
-
   end
+
+  # def show
+  #   @comment = Comment.find(params[:id])
+  #   @list = List.find_by_id(@comment.list.id)
+  #   redirect_to list_comments_path(@list)
+  # end
 
 
   def create
     @list = List.find(params[:list_id])
     @comment = @list.comments.build(comments_params)
+    # @comments = @list.comments
     if @comment.save
-      render 'comments/show', :layout => false
-      # I need to render something that just has the LI I want...
-      # why not just create a comments/show view that shows the LI of one comment?
-
-      # render 'create.js', :layout => false
-    else
-      render "lists/show"
+      redirect_to list_comments_path(@list)
     end
   end
 
+
+  # def create
+  #   @list = List.find([:list_id])
+  #   @comment = @list.comments.build(comments_params)
+  #   @comments = @list.comments
+  #   if @comment.save
+  #
+  #     render 'create.js', :layout => false
+  #   else
+  #    render "lists/show"
+  #  end
+  # end
 
   private
     def set_comment
