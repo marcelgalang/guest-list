@@ -31,5 +31,7 @@ Rails.application.routes.draw do
   #single comment for event list
   get 'api/lists/:id/comments/:id', to: 'comments#api_show'
 
+  post 'lists/:id/guests', to: 'guests#api_create'
+  post 'api/lists/:id/comments', to: 'comments#api_create'
 
 end

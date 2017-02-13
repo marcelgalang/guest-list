@@ -44,6 +44,8 @@ class CommentsController < ApplicationController
     # @comments = @list.comments
     if @comment.save
       redirect_to list_comments_path(@list)
+      # render 'lists/comments'
+      # render "comments/show", :layout => false
     end
   end
 

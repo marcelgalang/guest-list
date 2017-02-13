@@ -2,7 +2,9 @@ $(function() {
   bindClick()
 })
 
+
 function bindClick(){
+// REQUIREMENT 1
   $('.load_events').on('click', function(e){
     $.get('/api/lists', function (data) {
       // console.log(data)
@@ -14,6 +16,7 @@ function bindClick(){
       })
     })
   })
+  // REQUIREMENT 2
   $(document).on('click', '.list-title', function(e){
     e.preventDefault();
 
@@ -44,6 +47,7 @@ this.users= users
 this.shared_lists= shared_lists
 }
 
+// REQUIREMENT 5
 List.prototype.formatListIndex = function(){
   var listHtml = ''
   listHtml += `<a href="#" class="list-title" data-id=${this.id}><h1>Event: ${this.name}</h1></a>`
@@ -51,6 +55,7 @@ List.prototype.formatListIndex = function(){
   return listHtml
 }
 
+// REQUIREMENT 3
 List.prototype.formatListShow = function(){
   const guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
   const comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
@@ -68,57 +73,41 @@ List.prototype.formatListShow = function(){
   return listHtml
 }
 // Add Comment via AJAX POST
+// REQUIREMENT 4
 $(function(){
-  $("#new_comment").on("submit", '#new_comment', function(e){
+  $('#new_comment').on("submit", function(e){
     var data =  $(this).serialize();
-      $.post(this.action, function(data){
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
         $("#comment_content").val("");
         var $ol = $("div.comments ol")
         $ol.append(response);
-      });
+
+      }
+    });
     e.preventDefault();
   })
 });
 
-// Add Guest via AJAX POST
+
 $(function(){
-  $("#new_guest").on("submit","#new_guest", function(e){
-    var data =  $(this).serialize();
-    debugger
-      $.post(this.action, function(data){
-        $("#guest_name").val("");
-        var $ul = $("div.guests ol")
-        $ul.append(response);
+    $(".new_guest").on("submit", function(e){
+      e.preventDefault();
+      var data =  $(this).serialize();
+
+      $.ajax({
+        type: ($("input[name='_method']").val() || this.method),
+        url: this.action,
+        data: data,
+        success: function(response){
+          $("#guest_name").val("");
+          var $ol = $("div.guests ol")
+          $ol.append(response);
+        }
       });
-    e.preventDefault();
-  })
+      history.pushState(null, null, `/lists/${this.id}/guests`)
+    })
 });
-
-// $.post( this.action, function( $(this).serialize() ) {
-//   $("#comment_content").val("");
-//   var $ol = $("div.comments ol")
-//   $ol.append(response);
-// });
-
-// $(function(){
-//   $("#new_comment").on("submit", function(e){
-//     // alert("You been clickin")
-//     // url = this.action
-//     var data =  $(this).serialize();
-//     // debugger
-//     $.ajax({
-//       type: "POST",
-//       url: this.action,
-//       data: data,
-//       success: function(response){
-//         // debugger
-//         $("#comment_content").val("");
-//         var $ol = $("div.comments ol")
-//         $ol.append(response);
-//       }
-//
-//     });
-//
-//     e.preventDefault();
-//   })
-// });
