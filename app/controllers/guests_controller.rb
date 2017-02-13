@@ -1,7 +1,9 @@
 class GuestsController < ApplicationController
 
   def index
-    @guests = Guest.all
+    @list = List.find(params[:list_id])
+    @guests = @list.guests
+    @guest = Guest.new
   end
 
 
@@ -21,9 +23,9 @@ class GuestsController < ApplicationController
     @list = List.find(params[:list_id])
     @guest = @list.guests.build(guest_params)
     if @guest.save
-      redirect_to list_path(@list)
-    else
-      redirect_to list_path(@list)
+      redirect_to list_guests_path(@list)
+    # else
+    #   redirect_to list_path(@list)
     end
   end
 

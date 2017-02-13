@@ -5,7 +5,7 @@ $(function() {
 function bindClick(){
   $('.load_events').on('click', function(e){
     $.get('/api/lists', function (data) {
-      console.log(data)
+      // console.log(data)
       $('#app-container').html('')
       data.forEach(function(list){
         var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
@@ -54,7 +54,7 @@ List.prototype.formatListIndex = function(){
 List.prototype.formatListShow = function(){
   const guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
   const comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
-  const formHtml= `<form class="new_comment" id="new_comment" action="/lists/${this.id}/comments" accept-charset="UTF-8" method="post">Add Comment:<input name="utf8" type="hidden" value="✓"><input type="textarea" name="comment[content]" id="comment_content"><br><input type="submit" name="commit"></form>`
+  const formHtml= `<form action="/lists/${this.id}/guests" ><input type="text" name="name" ><input type="submit" value="Add Guest" ></form> `
   var listHtml = `
                   <h1>${this.name }</h1>
                   <h2>Invited Guests:</h2>
@@ -62,35 +62,34 @@ List.prototype.formatListShow = function(){
                   ${guests}
                   </ul>
                   <br>
+                  <a href="/lists/${this.id}/guests">Invite Guests</a>
                   <a href="/lists/${this.id}/comments">See Comments</a>
                   `
   return listHtml
 }
-
+// Add Comment via AJAX POST
 $(function(){
-  $("#new_comment").on("submit", function(e){
-    // alert("You been clickin")
-    // url = this.action
+  $("#new_comment").on("submit", '#new_comment', function(e){
     var data =  $(this).serialize();
-    debugger
-    // $.ajax({
-    //   type: "POST",
-    //   url: this.action,
-    //   data: data,
-    //   success: function(response){
-    //     // debugger
-    //     $("#comment_content").val("");
-    //     var $ol = $("div.comments ol")
-    //     $ol.append(response);
-    //   }
       $.post(this.action, function(data){
         $("#comment_content").val("");
         var $ol = $("div.comments ol")
         $ol.append(response);
       });
+    e.preventDefault();
+  })
+});
 
-    // });
-
+// Add Guest via AJAX POST
+$(function(){
+  $("#new_guest").on("submit","#new_guest", function(e){
+    var data =  $(this).serialize();
+    debugger
+      $.post(this.action, function(data){
+        $("#guest_name").val("");
+        var $ul = $("div.guests ol")
+        $ul.append(response);
+      });
     e.preventDefault();
   })
 });
