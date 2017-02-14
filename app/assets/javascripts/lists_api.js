@@ -5,7 +5,7 @@ $(function() {
 
 function bindClick(){
 // REQUIREMENT 1 Index of Events
-  $('.load_events').on('click', function(e){
+  $(document).on('click', '.load_events', function(e){
     $.get('/api/lists', function (data) {
       // debugger
       // if newEventObject is not null
