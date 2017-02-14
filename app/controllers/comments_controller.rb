@@ -43,7 +43,8 @@ class CommentsController < ApplicationController
     @comment = @list.comments.build(comments_params)
     # @comments = @list.comments
     if @comment.save
-      redirect_to list_comments_path(@list)
+      render json: @comment, status: 201
+      # redirect_to list_comments_path(@list)
       # render 'lists/comments'
       # render "comments/show", :layout => false
     end
