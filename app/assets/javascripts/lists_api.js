@@ -7,7 +7,7 @@ function bindClick(){
 // REQUIREMENT 1 Index of Events
   $('.load_events').on('click', function(e){
     $.get('/api/lists', function (data) {
-      debugger
+      // debugger
       // if newEventObject is not null
       // data.push(newEventObject)
       // console.log(data)
@@ -78,7 +78,6 @@ List.prototype.formatListShow = function(){
                   ${guests}
                   </ul>
                   <br>
-                  ${formHtml}
                   <a href="/lists/${this.id}/guests">Invite Guests</a>
                   <a href="/lists/${this.id}/comments">See Comments</a>
                   `
@@ -87,7 +86,7 @@ List.prototype.formatListShow = function(){
 // Add Comment via AJAX POST
 // REQUIREMENT 4
 $(function(){
-  $('form#new_comment').on("submit", function(e){
+  $(document).on("submit", 'form#new_comment', function(e){
     e.preventDefault();
     var data =  $(this).serialize();
 
@@ -96,19 +95,10 @@ $(function(){
       url: this.action,
       data: data,
       success: function(response){
-      //   $("#comment_content").val("");
-      //   var $ol = $("div.comments ol")
-
-      //   html = `<li>${response.content}</li>`
-      //   $ol.append(html);
-
-      // success: function(response){
        $("#comment_content").val("");
        var $ol = $("div.comments ol")
        var formatResponse = `<li>${response.content}</li>`
-      //  debugger
        $ol.append(formatResponse);
-        //comments index render
       }
     });
   })
@@ -116,20 +106,21 @@ $(function(){
 
 
 $(function(){
-    $(".new_guest").on("submit", function(e){
-      e.preventDefault();
-      var data =  $(this).serialize();
+  $(document).on("submit", 'form#new_guest', function(e){
+    e.preventDefault();
+    var data =  $(this).serialize();
 
-      $.ajax({
-        type: ($("input[name='_method']").val() || this.method),
-        url: this.action,
-        data: data,
-        success: function(response){
-          $("#guest_name").val("");
-          var $ol = $("div.guests ol")
-          $ol.append(response);
-        }
-      });
-      // history.pushState(null, null, `/lists/${this.id}/guests`)
-    })
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
+       $("#guest_name").val("");
+       var $ol = $("div.guests ol")
+       var formatResponse = `<li>${response.name}</li>`
+       $ol.append(formatResponse);
+      //  debugger
+      }
+    });
+  })
 });
