@@ -7,25 +7,37 @@ function bindClick(){
 // REQUIREMENT 1 Index of Events
   $(document).on('click', '.load_events', function(e){
     $.get('/api/lists', function (data) {
-      // debugger
-      // if newEventObject is not null
-      // data.push(newEventObject)
-      // console.log(data)
       $('#app-container').html('')
       data.forEach(function(list){
         var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
         var formattedList = newList.formatListIndex()
         $('#app-container').append(formattedList)
       })
-      // debugger
-      // var newEvent = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
-      // var formattedList = newList.formatListIndex()
-      // $('#app-container').append(formattedList);
-
-      var formEvent= `<form class="new_event" action= ""><input type="text" name="name" ><input type="submit" value="Add Event" ></form> `
-      $('#app-container').append(formEvent)
+      // var newEvent= `<a href="/lists/new">Invite Guests</a>`
+      $('#app-container').append(`<a href="/lists/new">Create a New Event</a>`)
     })
   })
+
+// Attempt to add event form
+  // $(document).on("submit", 'form#new_list', function(e){
+  //   e.preventDefault();
+  //   var data =  $(this).serialize();
+  //   debugger
+  //   $.ajax({
+  //     type: "POST",
+  //     url: this.action,
+  //     data: data,
+  //     success: function(response){
+  //      $("#list_name").val("");
+  //      var $div = $("div.app-container ")
+  //      var formatResponse = `<li>bango</li>`
+  //      $div.append(this.data);
+  //      debugger
+  //    }
+  //   });
+  // })
+
+
   // REQUIREMENT 2 Show single Event
   $(document).on('click', '.list-title', function(e){
     e.preventDefault();
@@ -36,17 +48,15 @@ function bindClick(){
         return response.json()
       })
       .then(function(list) {
-        // console.log(list)
-        //
         $('#app-container').html('')
         var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
         var formattedList = newList.formatListShow()
         $('#app-container').append(formattedList)
-
       })
       history.pushState(null, null, `/lists/${id}`)
   })
 }
+
 
 function List(id, name, comments, guests, shared_lists, users){
 this.id = id
@@ -83,6 +93,7 @@ List.prototype.formatListShow = function(){
                   `
   return listHtml
 }
+
 // Add Comment via AJAX POST
 // REQUIREMENT 4
 $(function(){
@@ -99,10 +110,13 @@ $(function(){
        var $ol = $("div.comments ol")
        var formatResponse = `<li>${response.content}</li>`
        $ol.append(formatResponse);
+      //  debugger
+      //  var container = $('#app-container')
+      //  container.append(`<a href="/lists/${response.list_id}/guests">View Event Guests</a>`)
       }
     });
   })
-});
+})
 
 
 $(function(){
@@ -120,7 +134,10 @@ $(function(){
        var formatResponse = `<li>${response.name}</li>`
        $ol.append(formatResponse);
       //  debugger
+      // $('id:last-child', this).remove();
+      //  var container = $('#app-container')
+      //  container.append(`<a href="/lists/${response.list_id}/comments">View Event Comments</a>`)
       }
     });
   })
-});
+})

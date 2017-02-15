@@ -3,8 +3,8 @@ class ListsController < ApplicationController
   before_action :set_list, only: [:api_show, :show, :edit, :update, :destroy]
 
   def index
-    # @lists = List.all
-    # @list = List.new
+    @lists = List.all
+    @list = List.new
   end
 
   def api_index
@@ -42,7 +42,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to list_url(@list)
+      render json: @comment, status: 201
     else
       @lists = List.all
       render :index

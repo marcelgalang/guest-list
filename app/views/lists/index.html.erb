@@ -1,4 +1,17 @@
 <div id='all-events'>
   <h3>Click the button to view all lists.</h3>
-  <%= link_to "View all lists", lists_url, class: 'load_events'%>
+  <%= link_to "View All Events", lists_url, class: 'load_events'%>
 </div>
+
+<a href="/lists/new">Create a New Event</a>
+<br>
+
+<!-- <%= form_for(@list) do |f| %>
+  <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new event name...") %>
+  <%= f.submit  %>
+<% end %>
+
+<form class="new_list" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input class="new-todo" placeholder="Enter a new event name" type="text" name="list[name]" id="list_name"><input type="submit" name="commit" value="Create List" data-disable-with="Create List"></form> -->
+<!--
+`<form class="new_list" id="new_list" action="/lists" ><input type="text" name="list[name]" id="list_name"><input type="submit"  value="Create List" ></form>
+`<form class="new_list" id="new_list" action="/lists" ><input id="list_name" type="text" name="list[name]" ><input id= "list_name" type="submit" value="Add An Event" ></form> ` -->

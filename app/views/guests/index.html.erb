@@ -12,3 +12,5 @@
   <%= f.text_field :name %>
   <p><%= f.submit "Add guest", :data => { disable_with: false } %></p>
 <% end %>
+
+<a href='/lists/<%=@list.id%>/comments'>View Event Comments</a>
