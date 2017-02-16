@@ -15,36 +15,26 @@ function bindClick(){
         var formattedList = newList.formatListIndex()
         $('#list-container').append(formattedList)
       })
-      var newEvent=`<form class="new_list" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><label for="list_name">Create A New Event</label> <input type="text" name="list[name]" id="list_name"></p><input type="submit" name="commit" value="Create List" data-disable-with="Create List"></form>`
+      var newEvent=`<form class="new-todo" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><label for="list_name">Create A New Event</label> <input type="text" name="list[name]" id="list_name" class="new_todo"></p></form>`
       $('#app-container').append(newEvent)
-
-      // $('#app-container').append(`<a href="/lists/new">Create a New Event</a>`)
     })
   })
 
-// Attempt to add event form
+// returns event form data and appends to Event array
   $(document).on("submit", 'form#new_list', function(e){
     e.preventDefault();
-
     var data =  $(this).serialize();
-    //console.log(data)
-    // debugger
     $.ajax({
       type: "POST",
       url: this.action,
       data: data,
       success: function(response){
-        console.log(response)
+        // console.log(response)
        $("#list_name").val("");
        var $listTitle = $("#list-container ")
        var newList = new List(response.id, response.name, response.comments, response.guests, response.users, response.shared_lists)
        var formattedList = newList.formatListIndex()
-       console.log(newList)
-
-
-       console.log(formattedList)
        $listTitle.append(formattedList);
-      //  debugger
      }
     });
   })
@@ -82,7 +72,6 @@ this.shared_lists= shared_lists
 // REQUIREMENT 5 Use of prototype to format
 List.prototype.formatListIndex = function(){
   var listHtml = ''
-  // listHtml += `<h1>Events</h1>`
   listHtml += `<a href="#" class="list-title" data-id=${this.id}><h1>${this.name}</h1></a>`
   listHtml += '<h4>Guests Invited:' + this.guests.length + '</h4>'
   return listHtml
@@ -90,19 +79,23 @@ List.prototype.formatListIndex = function(){
 
 // REQUIREMENT 3 reveal has_many relationship
 List.prototype.formatListShow = function(){
-  const guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
-  const comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
-  const formHtml= `<form class="new_guest" action="/lists/${this.id}/guests" ><input type="text" name="name" ><input id= "event_name" type="submit" value="Add Guest" ></form> `
+  var guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
+  var comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
+  // const formHtml= `<form class="new_guest" action="/lists/${this.id}/guests" ><input type="text" name="name" ><input id= "event_name" type="submit" value="Add Guest" ></form> `
+
+  var formHtml= `<form class="new_todo" id="new_guest" action="/lists/${this.id}/guests" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="text" name="guest[name]" id="guest_name"><input type="submit" name="commit" value="Invite guest"></form>`
   var listHtml = `
                   <h1>${this.name }</h1>
                   <h2>Invited Guests:</h2>
-                  <ul>
+                  <ul id="list-container">
                   ${guests}
                   </ul>
                   <br>
-                  <a href="/lists/${this.id}/guests">Invite Guests</a>
+                  ${formHtml}
                   <a href="/lists/${this.id}/comments">See Comments</a>
                   `
+                  // <a href="/lists/${this.id}/guests">Invite Guests</a>
+
   return listHtml
 }
 
@@ -130,25 +123,21 @@ $(function(){
   })
 })
 
-
 $(function(){
   $(document).on("submit", 'form#new_guest', function(e){
     e.preventDefault();
     var data =  $(this).serialize();
-
     $.ajax({
       type: "POST",
       url: this.action,
       data: data,
       success: function(response){
        $("#guest_name").val("");
-       var $ol = $("div.guests ol")
+       var $listContainer = $("ul#list-container")
        var formatResponse = `<li>${response.name}</li>`
-       $ol.append(formatResponse);
-      //  debugger
-      // $('id:last-child', this).remove();
-      //  var container = $('#app-container')
-      //  container.append(`<a href="/lists/${response.list_id}/comments">View Event Comments</a>`)
+       console.log(formatResponse)
+
+       $listContainer.append(formatResponse);
       }
     });
   })
