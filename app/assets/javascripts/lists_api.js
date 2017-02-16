@@ -6,36 +6,48 @@ $(function() {
 function bindClick(){
 // REQUIREMENT 1 Index of Events
   $(document).on('click', '.load_events', function(e){
+    e.preventDefault()
     $.get('/api/lists', function (data) {
-      $('#app-container').html('')
+      // $('#app-container').html('')
+      $('#list-container').html('')
       data.forEach(function(list){
         var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
         var formattedList = newList.formatListIndex()
-        $('#app-container').append(formattedList)
+        $('#list-container').append(formattedList)
       })
-      // var newEvent= `<a href="/lists/new">Invite Guests</a>`
-      $('#app-container').append(`<a href="/lists/new">Create a New Event</a>`)
+      var newEvent=`<form class="new_list" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><label for="list_name">Create A New Event</label> <input type="text" name="list[name]" id="list_name"></p><input type="submit" name="commit" value="Create List" data-disable-with="Create List"></form>`
+      $('#app-container').append(newEvent)
+
+      // $('#app-container').append(`<a href="/lists/new">Create a New Event</a>`)
     })
   })
 
 // Attempt to add event form
-  // $(document).on("submit", 'form#new_list', function(e){
-  //   e.preventDefault();
-  //   var data =  $(this).serialize();
-  //   debugger
-  //   $.ajax({
-  //     type: "POST",
-  //     url: this.action,
-  //     data: data,
-  //     success: function(response){
-  //      $("#list_name").val("");
-  //      var $div = $("div.app-container ")
-  //      var formatResponse = `<li>bango</li>`
-  //      $div.append(this.data);
-  //      debugger
-  //    }
-  //   });
-  // })
+  $(document).on("submit", 'form#new_list', function(e){
+    e.preventDefault();
+
+    var data =  $(this).serialize();
+    //console.log(data)
+    // debugger
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
+        console.log(response)
+       $("#list_name").val("");
+       var $listTitle = $("#list-container ")
+       var newList = new List(response.id, response.name, response.comments, response.guests, response.users, response.shared_lists)
+       var formattedList = newList.formatListIndex()
+       console.log(newList)
+
+
+       console.log(formattedList)
+       $listTitle.append(formattedList);
+      //  debugger
+     }
+    });
+  })
 
 
   // REQUIREMENT 2 Show single Event

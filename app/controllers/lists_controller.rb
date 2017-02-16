@@ -42,10 +42,11 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      render json: @comment, status: 201
-    else
-      @lists = List.all
-      render :index
+      # binding.pry
+      render json: @list, status: 201
+    # else
+    #   @lists = List.all
+    #   render :index
     end
   end
 
