@@ -81,7 +81,6 @@ List.prototype.formatListIndex = function(){
 List.prototype.formatListShow = function(){
   var guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
   var comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
-  // const formHtml= `<form class="new_guest" action="/lists/${this.id}/guests" ><input type="text" name="name" ><input id= "event_name" type="submit" value="Add Guest" ></form> `
 
   var formHtml= `<form class="new_todo" id="new_guest" action="/lists/${this.id}/guests" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="text" name="guest[name]" id="guest_name"><input type="submit" name="commit" value="Invite guest"></form>`
   var listHtml = `
@@ -92,12 +91,32 @@ List.prototype.formatListShow = function(){
                   </ul>
                   <br>
                   ${formHtml}
-                  <a href="/lists/${this.id}/comments">See Comments</a>
+                  <a href="/lists/${this.id}/comments" id="comment-view">See Comments</a>
                   `
                   // <a href="/lists/${this.id}/guests">Invite Guests</a>
 
   return listHtml
 }
+
+$(function(){
+  $(document).on("submit", 'form#new_guest', function(e){
+    e.preventDefault();
+    var data =  $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
+       $("#guest_name").val("");
+       var $listContainer = $("ul#list-container")
+       var formatResponse = `<li>${response.name}</li>`
+       console.log(formatResponse)
+
+       $listContainer.append(formatResponse);
+      }
+    });
+  })
+})
 
 // Add Comment via AJAX POST
 // REQUIREMENT 4
@@ -118,26 +137,6 @@ $(function(){
       //  debugger
       //  var container = $('#app-container')
       //  container.append(`<a href="/lists/${response.list_id}/guests">View Event Guests</a>`)
-      }
-    });
-  })
-})
-
-$(function(){
-  $(document).on("submit", 'form#new_guest', function(e){
-    e.preventDefault();
-    var data =  $(this).serialize();
-    $.ajax({
-      type: "POST",
-      url: this.action,
-      data: data,
-      success: function(response){
-       $("#guest_name").val("");
-       var $listContainer = $("ul#list-container")
-       var formatResponse = `<li>${response.name}</li>`
-       console.log(formatResponse)
-
-       $listContainer.append(formatResponse);
       }
     });
   })
