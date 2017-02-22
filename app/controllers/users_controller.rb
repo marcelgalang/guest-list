@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [ :edit, :update, :destroy]
 
 
   def show
-    redirect_to login_path unless logged_in?
+    if logged_in?
+      @user = User.find(params[:id])
+    else
+      redirect_to login_path
+    end
   end
 
   def index

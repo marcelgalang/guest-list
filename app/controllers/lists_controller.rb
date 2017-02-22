@@ -1,10 +1,20 @@
 class ListsController < ApplicationController
 
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:api_show, :show, :edit, :update, :destroy]
 
   def index
     @lists = List.all
     @list = List.new
+  end
+
+  def api_index
+    @lists = List.all
+    render :json => @lists
+  end
+
+  def api_show
+    # @list = List.find(params[:id])
+    render :json => @list
   end
 
 
@@ -32,10 +42,11 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to list_url(@list)
-    else
-      @lists = List.all
-      render :index
+      # binding.pry
+      render json: @list, status: 201
+    # else
+    #   @lists = List.all
+    #   render :index
     end
   end
 

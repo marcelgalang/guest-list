@@ -1,109 +1,127 @@
-$(function(){
-  $("input.toggle").on("change", function(){
-    $(this).parents("form").trigger("submit")
-  })
-});
-
-// show index ala Cernan
-
 $(function() {
   bindClick()
 })
 
-function bindClick() {
-  $('a.load_comments').on('click', function(){
-    $.get('/api/lists/:id/comments'), function(data){
-      $('#app-container').html('')
-      data.forEach(function(post){
-        var newComment = new Comment(comment.id, comment.content, comment.list_id);
-        var formattedComment = newComment.formatCommentsIndex()
-        $('#app-container').append(formattedComment)
 
+function bindClick(){
+// REQUIREMENT 1 Index of Events
+  $(document).on('click', '.load_events', function(e){
+    e.preventDefault()
+    $.get('/api/lists', function (data) {
+      // $('#app-container').html('')
+      $('#list-container').html('')
+      data.forEach(function(list){
+        var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
+        var formattedList = newList.formatListIndex()
+        $('#list-container').append(formattedList)
       })
-       e.preventDefault();
-    }
+      var newEvent=`<form class="new-todo" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><label for="list_name">Create A New Event</label> <input type="text" name="list[name]" id="list_name" class="new_todo"></p></form>`
+      $('#app-container').append(newEvent)
+    })
+  })
+
+// returns event form data and appends to Event array
+  $(document).on("submit", 'form#new_list', function(e){
+    e.preventDefault();
+    var data =  $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
+      // console.log(response)
+       $("#list_name").val("");
+       var $listTitle = $("#list-container ")
+       var newList = new List(response.id, response.name, response.comments, response.guests, response.users, response.shared_lists)
+       var formattedList = newList.formatListIndex()
+       $listTitle.append(formattedList);
+     }
+    });
+  })
+
+
+  // REQUIREMENT 2 Show single Event
+  $(document).on('click', '.list-title', function(e){
+    e.preventDefault();
+
+    var id = $(this).data('id')
+    fetch(`/api/lists/${id}`)
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function(list) {
+        $('#app-container').html('')
+        var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists)
+        var formattedList = newList.formatListShow()
+        $('#app-container').append(formattedList)
+      })
+      history.pushState(null, null, `/lists/${id}`)
   })
 }
 
-function Comment(id, content, list_id, user_id){
-  this.id = id
-  this.content = content
-  this.list_id = list_id
-  this.user_id = user_id
+
+function List(id, name, comments, guests, shared_lists, users){
+this.id = id
+this.name = name
+this.comments= comments
+this.guests= guests
+this.users= users
+this.shared_lists= shared_lists
 }
 
-Comment.prototype.formatCommentsIndex = function(){
-  var commentHtml = ''
-  commentHtml += '<p>${this.content}</p>'
-  return commentHtml
-
+// REQUIREMENT 5 Use of prototype to format
+List.prototype.formatListIndex = function(){
+  var listHtml = ''
+  listHtml += `<a href="#" class="list-title" data-id=${this.id}><h1>${this.name}</h1></a>`
+  listHtml += '<h4>Guests Invited:' + this.guests.length + '</h4>'
+  return listHtml
 }
 
-// Last Avi blanket function
-// $(function(){
-//   $("a.load_comments").on("click", function(e){
-//
-//     $.ajax({
-//       debugger
-//       url: this.href
-//       dataType: 'script'
-//     })
-//
-//     e.preventDefault();
-//   })
-// })
+// REQUIREMENT 3 reveal has_many relationship
+List.prototype.formatListShow = function(){
+  var guests = this.guests.map(guest => `<li>${guest.name}</li>`).join('')
+  var comments = this.comments.map(comment => `<li>${comment.content}</li>`).join('')
 
+  var formHtml= `<form class="new_todo" id="new_guest" action="/lists/${this.id}/guests" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="text" name="guest[name]" id="guest_name"><input type="submit" name="commit" value="Invite guest"></form>`
+  var listHtml = `
+                  <h1>${this.name }</h1>
+                  <h2>Invited Guests:</h2>
+                  <ul id="list-container">
+                  ${guests}
+                  </ul>
+                  <br>
+                  ${formHtml}
+                  <a href="/lists/${this.id}/comments" id="comment-view">See Comments</a>
+                  `
 
+  return listHtml
+}
 
-//     // Requesting HTML
-    // $.get(this.href).success(function(response){
-    //   $("div.comments").html(response)
-    // })
-//
-//     // Requesting JSON
-// $(function(){
-//   $("a.load_comments").on("click", function(e){
-//     $.get(this.href).success(function(json){
-//       debugger
-//
-//       // clear the OL html (in case there were stale comments)
-//       // var $ol = $("div.comments ol")
-//       // $ol.html("") // emptied the OL
-//       //
-//       // // iterate over each comment within json
-//       // json.forEach(function(comment){
-//       //   // with each comment data, append an LI to the OL with the comment content
-//       //   // $ol.append("<li>" + comment.content + "</li>");
-//       //   debugger
-//       //   })
-//       e.preventDefault();
-//     })
-//   })
 $(function(){
-  $("a.load_comments").on("click", function(e){
-    $.get(this.href).success(function(json){
-
-      // clear the OL html (in case there were stale comments)
-       var $ol = $("div.comments ol")
-       $ol.html("") // emptied the OL
-       json.forEach(function(comment){
-
-         $ol.append("<li>" + comment.content + "</li>");
-       })
-    })
+  $(document).on("submit", 'form#new_guest', function(e){
     e.preventDefault();
+    var data =  $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: data,
+      success: function(response){
+       $("#guest_name").val("");
+       var $listContainer = $("ul#list-container")
+       var formatResponse = `<li>${response.name}</li>`
+       console.log(formatResponse)
+
+       $listContainer.append(formatResponse);
+      }
+    });
   })
 })
-//
 
-
-//
-//
-// Submit Comments via AJAX - 
+// Add Comment via AJAX POST
+// REQUIREMENT 4
 $(function(){
-  $("#new_comment").on("submit", function(e){
-    // alert("You been clickin")
-    // url = this.action
+  $(document).on("submit", 'form#new_comment', function(e){
+    e.preventDefault();
     var data =  $(this).serialize();
 
     $.ajax({
@@ -111,14 +129,11 @@ $(function(){
       url: this.action,
       data: data,
       success: function(response){
-        // debugger
-        $("#comment_content").val("");
-        var $ol = $("div.comments ol")
-        $ol.append(response);
+       $("#comment_content").val("");
+       var $ol = $("div.comments ol")
+       var formatResponse = `<li>${response.content}</li>`
+       $ol.append(formatResponse);
       }
-
     });
-
-    e.preventDefault();
   })
-});
+})

@@ -1,30 +1,17 @@
- <section class="todoapp">
-  <header class="header">
-    <h1>Events</h1>
-    <%= form_for(@list) do |f| %>
-      <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new event name...") %>
-      <%= f.submit :style => "display: none" %>
-    <% end %>
-</form>
-  </header>
+<div id='all-events'>
+  <h3>Click the button to view all lists.</h3>
+  <%= link_to "View All Events", lists_url, class: 'load_events'%>
+</div>
 
-  <section class="main">
-    <input class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list">
-      <% @lists.each do |list| %>
-      <li>
-        <div class="view">
-          <label><%= link_to list.name, list_path(list) %> guests invited: <%= list.head_count %>  </label>
-        </div>
-      </li>
-      <% end %>
-    </ul>
+<a href="/lists/new">Create a New Event</a>
+<br>
 
+<!-- <%= form_for(@list) do |f| %>
+  <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new event name...") %>
+  <%= f.submit  %>
+<% end %>
 
-  </section>
-  <footer class="footer">
-    <div>Biggest Event: <%= List.most_invited.upcase %></div>
-  </footer>
-</section>
-
+<form class="new_list" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input class="new-todo" placeholder="Enter a new event name" type="text" name="list[name]" id="list_name"><input type="submit" name="commit" value="Create List" data-disable-with="Create List"></form> -->
+<!--
+`<form class="new_list" id="new_list" action="/lists" ><input type="text" name="list[name]" id="list_name"><input type="submit"  value="Create List" ></form>
+`<form class="new_list" id="new_list" action="/lists" ><input id="list_name" type="text" name="list[name]" ><input id= "list_name" type="submit" value="Add An Event" ></form> ` -->

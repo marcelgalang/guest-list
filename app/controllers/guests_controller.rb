@@ -1,7 +1,9 @@
 class GuestsController < ApplicationController
 
   def index
-    @guests = Guest.all
+    @list = List.find(params[:list_id])
+    @guests = @list.guests
+    @guest = Guest.new
   end
 
 
@@ -15,15 +17,29 @@ class GuestsController < ApplicationController
   end
 
 
+  def api_create
+    @list = List.find(params[:list_id])
+    @guest = @list.guests.build(guest_params)
+    @guest.save
+    render json: @guest, status: 201
 
+      # render 'guests/show', :layout => false
+      # redirect_to list_guests_path(@list)
+    # else
+    #   redirect_to list_path(@list)
+
+  end
 
   def create
     @list = List.find(params[:list_id])
     @guest = @list.guests.build(guest_params)
     if @guest.save
-      redirect_to list_path(@list)
-    else
-      redirect_to list_path(@list)
+      # redirect_to list_guests_path(@list)
+      render json: @guest, status: 201
+      # render 'guests/show', :layout => false
+
+    # else
+    #   redirect_to list_path(@list)
     end
   end
 

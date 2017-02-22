@@ -1,13 +1,13 @@
 <%= form_for(@list) do |list_form| %>
   <p><%= list_form.label :name %> <%= list_form.text_field :name %></p>
 
-  <p>
+  <!-- <p>
     <%= list_form.fields_for :guests, @list.guests do |guest_field| %>
       <p>
         <%= guest_field.text_field :name %>
       </p>
     <% end %>
-  </p>
+  </p> -->
 
 
   <%= list_form.submit %>

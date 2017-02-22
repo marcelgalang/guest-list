@@ -4,14 +4,19 @@
     <title>GuestList</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
+  <body class="main">
     <div id="app-container" class="container">
+      <div id="list-container">
       <%= yield %>
     </div>
+    </div>
   </body>
-  <%= link_to 'Logout', logout_path %>
+  <footer>
+    <%= link_to "View All Events", lists_url, class: 'load_events'%>
+    <%= link_to 'Logout', logout_path %>
+  </footer>
 </html>
