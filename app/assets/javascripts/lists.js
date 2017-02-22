@@ -29,6 +29,7 @@ function bindClick(){
       url: this.action,
       data: data,
       success: function(response){
+      // console.log(response)
        $("#list_name").val("");
        var $listTitle = $("#list-container ")
        var newList = new List(response.id, response.name, response.comments, response.guests, response.users, response.shared_lists)
