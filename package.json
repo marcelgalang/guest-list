@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "dependencies": {
+    "browserify": "^14.0.0",
+    "babel-preset-es2015": "^6.3.13",
+    "browserify-incremental": "^3.1.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0"
+  }
+}
