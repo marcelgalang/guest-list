@@ -1,7 +1,7 @@
 
 # README
 
-Guest List
+##Guest List
 
 A simple Rails app for party planners and event security.
 
@@ -16,7 +16,8 @@ git@github.com:marcelgalang/guest-list.git
 
 For HTTPS
 ```ruby
-https://github.com/marcelgalang/guest-list.git```
+https://github.com/marcelgalang/guest-list.git
+```
 
 Install the needed gems locally:
 
@@ -36,7 +37,7 @@ To contribute to this app, fork the repository and push to a new branch for me t
 
 ## License
 
-The app is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).e
+The app is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
 ##Contact
 
