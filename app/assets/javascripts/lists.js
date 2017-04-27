@@ -4,21 +4,33 @@ $(function () {
   bindClick();
 });
 
+function appendNewEvent() {
+    if(!hasBeenAppended) {
+        hasBeenAppended = true;
+        $('#app-container').append(newEvent);
+    }
+}
+
+var hasBeenAppended = false;
+
 function bindClick() {
   // REQUIREMENT 1 Index of Events
   $(document).on('click', '.load_events', function (e) {
     e.preventDefault();
     $.get('/api/lists', function (data) {
-      // $('#app-container').html('')
+
       $('#list-container').html('');
+      $('#form-container').html('');
       data.forEach(function (list) {
         var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists);
         var formattedList = newList.formatListIndex();
         $('#list-container').append(formattedList);
       });
       var newEvent = '<form class="new-todo" id="new_list" action="/lists" accept-charset="UTF-8" method="post"><label for="list_name">Create A New Event</label> <input type="text" name="list[name]" id="list_name" class="new_todo"></p></form>';
-      $('#app-container').append(newEvent);
+
+      $('#form-container').html(newEvent);
     });
+    history.pushState(null, null, '/lists');
   });
 
   // returns event form data and appends to Event array
@@ -36,6 +48,7 @@ function bindClick() {
         var newList = new List(response.id, response.name, response.comments, response.guests, response.users, response.shared_lists);
         var formattedList = newList.formatListIndex();
         $listTitle.append(formattedList);
+
       }
     });
   });
@@ -43,15 +56,15 @@ function bindClick() {
   // REQUIREMENT 2 Show single Event
   $(document).on('click', '.list-title', function (e) {
     e.preventDefault();
-
+    $('#form-container').html('');
     var id = $(this).data('id');
     fetch('/api/lists/' + id).then(function (response) {
       return response.json();
     }).then(function (list) {
-      $('#app-container').html('');
+      $('#list-container').html('');
       var newList = new List(list.id, list.name, list.comments, list.guests, list.users, list.shared_lists);
       var formattedList = newList.formatListShow();
-      $('#app-container').append(formattedList);
+      $('#list-container').append(formattedList);
     });
     history.pushState(null, null, '/lists/' + id);
   });

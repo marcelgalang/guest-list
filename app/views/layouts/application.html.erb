@@ -11,11 +11,15 @@
   <body class="main">
     <div id="app-container" class="container">
       <div id="list-container">
-      <%= yield %>
-    </div>
+
+          <%= yield %>
+
+      </div>
+      <div id="form-container"></div>
     </div>
   </body>
-  <footer>
+  <footer id="footer">
+    <!-- <%= link_to "View All Events", lists_url, class: 'load_events'%> -->
     <%= link_to "View All Events", lists_url, class: 'load_events'%>
     <%= link_to 'Logout', logout_path %>
   </footer>
