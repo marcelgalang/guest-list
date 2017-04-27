@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426235619) do
+ActiveRecord::Schema.define(version: 20170427000446) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20170426235619) do
 
   create_table "guests", force: :cascade do |t|
     t.string   "name"
-    t.integer  "status"
+    t.boolean  "status",     default: false
     t.integer  "list_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "lists", force: :cascade do |t|
