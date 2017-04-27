@@ -4,14 +4,6 @@ $(function () {
   bindClick();
 });
 
-function appendNewEvent() {
-    if(!hasBeenAppended) {
-        hasBeenAppended = true;
-        $('#app-container').append(newEvent);
-    }
-}
-
-var hasBeenAppended = false;
 
 function bindClick() {
   // REQUIREMENT 1 Index of Events
