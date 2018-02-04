@@ -74,8 +74,8 @@ function List(id, name, comments, guests, shared_lists, users) {
 // REQUIREMENT 5 Use of prototype to format
 List.prototype.formatListIndex = function () {
   var listHtml = '';
-  listHtml += '<a href="#" class="list-title" data-id=' + this.id + '><h1>' + this.name + '</h1></a>';
-  listHtml += '<h4>Guests Invited:' + this.guests.length + '</h4>';
+  listHtml += '<a href="#" class="list-title" data-id=' + this.id + '><h2>' + this.name + '</h2></a>';
+  listHtml += '<h5>Guests Invited:' + this.guests.length + '</h5>';
   return listHtml;
 };
 

@@ -420,7 +420,8 @@ main,
 nav,
 section,
 summary {
-  display: block; }
+  display: block;
+  text-align: center; }
 
 audio,
 canvas,
